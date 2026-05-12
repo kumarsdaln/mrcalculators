@@ -235,9 +235,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-16">
                     <!-- Brand and Description -->
                     <div class="md:col-span-2 space-y-6 text-center md:text-left">
-                        <div class="flex items-center gap-2 justify-center md:justify-start">
+                        <div class="flex items-center justify-center md:justify-start">
                             <ApplicationLogo class="max-h-24 w-20 invert brightness-0" />
-                            <span class="text-xl font-bold text-white">MR Calculators</span>
+                            <span class="text-xl font-bold text-white">Calculators</span>
                         </div>
                         <p class="max-w-sm text-sm leading-relaxed mx-auto md:mx-0 text-white/60">
                             The definitive financial command center for modern enterprises. Replace messy spreadsheets
