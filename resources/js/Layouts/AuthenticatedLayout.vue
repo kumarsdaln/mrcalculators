@@ -6,6 +6,19 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
+import { 
+    LayoutDashboard, 
+    History, 
+    CreditCard, 
+    ShieldCheck, 
+    LogOut, 
+    User,
+    Menu,
+    X,
+    Bell,
+    ChevronDown,
+    Sparkles
+} from 'lucide-vue-next';
 
 const showingNavigationDropdown = ref(false);
 const page = usePage();
@@ -16,220 +29,170 @@ const isAdmin = computed(() => user.value?.is_admin ?? false);
 </script>
 
 <template>
-    <div class="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,rgba(19,23,71,0.04)_100%)] text-[#131747]">
-        <nav class="sticky top-0 z-50 border-b border-[#131747]/10 bg-white/90 backdrop-blur-xl">
+    <div class="min-h-screen bg-[#F8F9FB] text-[#131747] selection:bg-[#FF4040]/10 selection:text-[#FF4040]">
+        
+        <!-- Animated Background Accents -->
+        <div class="fixed inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-[10%] -right-[5%] w-[40%] h-[40%] rounded-full bg-[#FF4040]/5 blur-[120px] animate-pulse"></div>
+            <div class="absolute top-[20%] -left-[5%] w-[30%] h-[30%] rounded-full bg-[#131747]/5 blur-[100px]"></div>
+        </div>
+
+        <nav class="sticky top-0 z-50 border-b border-[#131747]/5 bg-white/80 backdrop-blur-xl">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex min-h-[4.75rem] items-center justify-between gap-4">
-                    <div class="flex items-center gap-6">
-                        <Link :href="route('home')" class="flex items-center gap-3">
-                            <ApplicationLogo class="max-h-12 w-12" />
+                <div class="flex min-h-[5rem] items-center justify-between">
+                    
+                    <!-- Left Side: Brand & Primary Nav -->
+                    <div class="flex items-center gap-12">
+                        <Link :href="route('home')" class="group flex items-center transition-transform active:scale-95">
+                            <ApplicationLogo class="max-h-24 w-20 w-auto" />
                         </Link>
 
-                        <div class="hidden items-center gap-8 sm:flex">
+                        <div class="hidden items-center gap-1 sm:flex">
                             <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <LayoutDashboard :size="16" class="mr-2 opacity-50" />
                                 Dashboard
                             </NavLink>
                             <NavLink :href="route('history')" :active="route().current('history')">
+                                <History :size="16" class="mr-2 opacity-50" />
                                 Audit History
                             </NavLink>
-
                             <NavLink :href="route('billing.index')" :active="route().current('billing.*')">
+                                <CreditCard :size="16" class="mr-2 opacity-50" />
                                 Billing
                             </NavLink>
-                            <NavLink
-                                v-if="isAdmin"
-                                :href="route('admin.dashboard')"
-                                :active="route().current('admin.*')"
-                            >
+                            <NavLink v-if="isAdmin" :href="route('admin.dashboard')" :active="route().current('admin.*')">
+                                <ShieldCheck :size="16" class="mr-2 opacity-50" />
                                 Admin
                             </NavLink>
                         </div>
                     </div>
 
-                    <div class="hidden items-center gap-3 sm:flex">
-                        <div class="hidden rounded-2xl border border-[#131747]/10 bg-[#131747]/5 px-4 py-2 lg:block">
-                            <p class="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#131747]/45">
-                                Current plan
-                            </p>
-                            <div class="mt-1 flex items-center gap-2">
-                                <span class="text-sm font-semibold text-[#131747]">
-                                    {{ subscription.plan_name }}
-                                </span>
-                                <span class="rounded-full bg-[#FF4040]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#FF4040]">
-                                    {{ subscription.status }}
-                                </span>
+                    <!-- Right Side: Plan & User -->
+                    <div class="hidden items-center gap-4 sm:flex">
+                        <!-- Premium Plan Badge -->
+                        <div class="hidden items-center gap-3 rounded-2xl border border-[#131747]/5 bg-white px-4 py-2 shadow-sm lg:flex">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-[#FF4040]/10 text-[#FF4040]">
+                                <Sparkles :size="16" />
+                            </div>
+                            <div>
+                                <p class="text-[9px] font-black uppercase tracking-widest text-[#131747]/40">Active Tier</p>
+                                <p class="text-xs font-bold">{{ subscription.plan_name }}</p>
                             </div>
                         </div>
 
-                        <div class="relative">
-                            <Dropdown align="right" width="48">
-                                <template #trigger>
-                                    <span class="inline-flex rounded-md">
-                                        <button
-                                            type="button"
-                                            class="inline-flex items-center gap-3 rounded-2xl border border-[#131747]/10 bg-white px-3 py-2 text-sm font-medium text-[#131747] shadow-sm shadow-[#131747]/5 transition duration-150 ease-in-out hover:border-[#FF4040]/30 hover:text-[#FF4040] focus:outline-none"
-                                        >
-                                            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-[#131747] text-xs font-bold uppercase tracking-[0.2em] text-white">
-                                                {{ user.initials }}
-                                            </span>
-                                            <span class="hidden text-left lg:block">
-                                                <span class="block text-sm font-semibold leading-4">{{ user.name }}</span>
-                                                <span class="mt-1 block text-xs text-[#131747]/50">{{ user.email }}</span>
-                                            </span>
+                        <div class="h-8 w-px bg-gray-100 mx-2"></div>
 
-                                            <svg
-                                                class="h-4 w-4"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20"
-                                                fill="currentColor"
-                                            >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </span>
+                        <!-- User Profile -->
+                        <div class="relative">
+                            <Dropdown align="right" width="56">
+                                <template #trigger>
+                                    <button class="group flex items-center gap-3 rounded-2xl bg-[#131747] p-1 pr-4 transition-all hover:bg-[#131747]/90 hover:shadow-lg hover:shadow-[#131747]/20">
+                                        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-xs font-black text-white">
+                                            {{ user.initials }}
+                                        </div>
+                                        <div class="hidden text-left lg:block">
+                                            <p class="text-[11px] font-bold leading-none text-white/60">Account</p>
+                                            <p class="mt-1 text-xs font-bold text-white">{{ user.name }}</p>
+                                        </div>
+                                        <ChevronDown :size="14" class="text-white/40 transition-transform group-hover:translate-y-0.5" />
+                                    </button>
                                 </template>
 
                                 <template #content>
-                                    <DropdownLink :href="route('profile.edit')">
-                                        Profile
+                                    <div class="px-4 py-3 border-b border-gray-50">
+                                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Personal Space</p>
+                                    </div>
+                                    <DropdownLink :href="route('profile.edit')" class="flex items-center gap-2">
+                                        <User :size="14" class="opacity-50" /> Profile Settings
                                     </DropdownLink>
-                                    <DropdownLink :href="route('billing.index')">
-                                        Billing Center
+                                    <DropdownLink :href="route('billing.index')" class="flex items-center gap-2">
+                                        <CreditCard :size="14" class="opacity-50" /> Subscription
                                     </DropdownLink>
-                                    <DropdownLink v-if="isAdmin" :href="route('admin.dashboard')">
-                                        Admin Panel
-                                    </DropdownLink>
-                                    <DropdownLink :href="route('logout')" method="post" as="button">
-                                        Log Out
+                                    <div class="border-t border-gray-50 mt-1"></div>
+                                    <DropdownLink :href="route('logout')" method="post" as="button" class="flex items-center gap-2 !text-[#FF4040]">
+                                        <LogOut :size="14" /> Sign Out
                                     </DropdownLink>
                                 </template>
                             </Dropdown>
                         </div>
                     </div>
 
+                    <!-- Mobile Menu Button -->
                     <div class="-me-2 flex items-center sm:hidden">
-                        <button
-                            @click="showingNavigationDropdown = !showingNavigationDropdown"
-                            class="inline-flex items-center justify-center rounded-xl border border-[#131747]/10 bg-white p-2 text-[#131747]/70 transition duration-150 ease-in-out hover:border-[#FF4040]/30 hover:text-[#FF4040] focus:outline-none"
-                        >
-                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                <path
-                                    :class="{
-                                        hidden: showingNavigationDropdown,
-                                        'inline-flex': !showingNavigationDropdown,
-                                    }"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                                <path
-                                    :class="{
-                                        hidden: !showingNavigationDropdown,
-                                        'inline-flex': showingNavigationDropdown,
-                                    }"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
+                        <button @click="showingNavigationDropdown = !showingNavigationDropdown" class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#131747] text-white">
+                            <Menu v-if="!showingNavigationDropdown" :size="20" />
+                            <X v-else :size="20" />
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div
-                :class="{
-                    block: showingNavigationDropdown,
-                    hidden: !showingNavigationDropdown,
-                }"
-                class="border-t border-[#131747]/10 bg-white sm:hidden"
-            >
-                <div class="space-y-1 px-4 pb-3 pt-2">
-                    <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                        Dashboard
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink :href="route('history')" :active="route().current('history')">
-                        Audit History
-                    </ResponsiveNavLink>
-
-                    <ResponsiveNavLink :href="route('billing.index')" :active="route().current('billing.*')">
-                        Billing
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink
-                        v-if="isAdmin"
-                        :href="route('admin.dashboard')"
-                        :active="route().current('admin.*')"
-                    >
-                        Admin
-                    </ResponsiveNavLink>
-                </div>
-
-                <div class="border-t border-[#131747]/10 px-4 pb-4 pt-4">
-                    <div class="flex items-center gap-3">
-                        <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#131747] text-sm font-bold uppercase tracking-[0.2em] text-white">
-                            {{ user.initials }}
+            <!-- Mobile Navigation -->
+            <transition enter-active-class="transition duration-200 ease-out" enter-from-class="translate-y-[-10px] opacity-0" enter-to-class="translate-y-0 opacity-100">
+                <div v-show="showingNavigationDropdown" class="border-t border-[#131747]/5 bg-white sm:hidden">
+                    <div class="space-y-1 px-4 pb-6 pt-4">
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">Dashboard</ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('history')" :active="route().current('history')">Audit History</ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('billing.index')" :active="route().current('billing.*')">Billing Center</ResponsiveNavLink>
+                        
+                        <div class="mt-6 border-t border-gray-100 pt-6">
+                            <div class="flex items-center gap-4 px-2">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#131747] font-black text-white">
+                                    {{ user.initials }}
+                                </div>
+                                <div>
+                                    <p class="font-bold text-[#131747]">{{ user.name }}</p>
+                                    <p class="text-xs text-[#131747]/50">{{ user.email }}</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <Link :href="route('profile.edit')" class="flex items-center justify-center rounded-xl bg-gray-50 py-3 text-xs font-bold">Settings</Link>
+                                <Link :href="route('logout')" method="post" as="button" class="flex items-center justify-center rounded-xl bg-[#FF4040]/5 py-3 text-xs font-bold text-[#FF4040]">Logout</Link>
+                            </div>
                         </div>
-                        <div>
-                            <div class="text-base font-semibold text-[#131747]">{{ user.name }}</div>
-                            <div class="text-sm text-[#131747]/55">{{ user.email }}</div>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 rounded-2xl border border-[#131747]/10 bg-[#131747]/5 px-4 py-3">
-                        <p class="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#131747]/45">
-                            Current plan
-                        </p>
-                        <div class="mt-2 flex items-center justify-between gap-3">
-                            <span class="text-sm font-semibold text-[#131747]">{{ subscription.plan_name }}</span>
-                            <span class="rounded-full bg-[#FF4040]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#FF4040]">
-                                {{ subscription.status }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mt-3 space-y-1">
-                        <ResponsiveNavLink :href="route('profile.edit')">
-                            Profile
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                            Log Out
-                        </ResponsiveNavLink>
                     </div>
                 </div>
-            </div>
+            </transition>
         </nav>
 
-        <div v-if="flash.success || flash.error" class="border-b border-[#131747]/10 bg-white/80">
-            <div class="mx-auto max-w-7xl space-y-3 px-4 py-4 sm:px-6 lg:px-8">
-                <div
-                    v-if="flash.success"
-                    class="rounded-2xl border border-[#131747]/10 bg-[#131747]/5 px-4 py-3 text-sm font-medium text-[#131747]"
-                >
-                    {{ flash.success }}
+        <!-- Flash Messaging -->
+        <div v-if="flash.success || flash.error" class="fixed bottom-8 right-8 z-[100] w-full max-w-md animate-bounce-in">
+            <div v-if="flash.success" class="flex items-center gap-3 rounded-[2rem] border border-[#131747]/5 bg-white p-4 shadow-2xl shadow-[#131747]/10">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white">
+                    <ShieldCheck :size="20" />
                 </div>
-                <div
-                    v-if="flash.error"
-                    class="rounded-2xl border border-[#FF4040]/20 bg-[#FF4040]/8 px-4 py-3 text-sm font-medium text-[#FF4040]"
-                >
-                    {{ flash.error }}
+                <p class="text-sm font-bold text-[#131747]">{{ flash.success }}</p>
+            </div>
+            <div v-if="flash.error" class="flex items-center gap-3 rounded-[2rem] border border-[#FF4040]/10 bg-white p-4 shadow-2xl shadow-[#FF4040]/10">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF4040] text-white">
+                    <ShieldCheck :size="20" />
                 </div>
+                <p class="text-sm font-bold text-[#FF4040]">{{ flash.error }}</p>
             </div>
         </div>
 
-        <header v-if="$slots.header" class="border-b border-[#131747]/10 bg-white/70 backdrop-blur-sm">
-            <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <!-- Layout Header -->
+        <header v-if="$slots.header" class="relative overflow-hidden pt-12 pb-8">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <slot name="header" />
             </div>
         </header>
 
-        <main>
-            <slot />
+        <!-- Content Area -->
+        <main class="relative pb-20">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <slot />
+            </div>
         </main>
     </div>
 </template>
+
+<style scoped>
+@keyframes bounce-in {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+.animate-bounce-in {
+    animation: bounce-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+</style>

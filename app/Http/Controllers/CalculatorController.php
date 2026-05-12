@@ -37,82 +37,47 @@ class CalculatorController extends Controller
     public function breakEvenPrice(Request $request)
     {
         $request->validate([
-            'month' => 'required|array',
-            'unit' => 'required|array',
-            'tpt' => 'required|numeric'
+            'entries' => 'required|array',
+            'entries.*.amount' => 'required|numeric|min:0',
+            'entries.*.unit' => 'required|numeric|min:1',
+            'entries.*.tpt' => 'required|numeric|min:0',
         ]);
 
-        $months = $request->input('month');
-        $units = $request->input('unit');
-        
-        $n = count($months);
-        $sum_x = 0;
-        $sum_y = 0;
-        $sum_square_x = 0;
-        $sum_square_y = 0;
-        $sum_xy = 0;
+        $entries = $request->input('entries');
+        $calculatedData = [];
 
-        for ($i = 0; $i < $n; $i++) {
-            $x = $i + 1;
-            $monthVal = $months[$i];
-            $unitVal = $units[$i];
+        foreach ($entries as $index => $entry) {
+            $expense = (float)$entry['amount'];
+            $units = (float)$entry['unit'];
+            $tptPercent = (float)$entry['tpt'] / 100;
 
-            if ($unitVal == 0) {
-                return response()->json(['status' => 'error', 'error' => "Unit can't be zero"]);
-            }
+            // Individual math per row
+            $breakEvenPrice = $expense / $units;
+            $targetPrice = $breakEvenPrice * (1 + $tptPercent);
 
-            $y = $monthVal / $unitVal;
-
-            $square_x = $x * $x;
-            $square_y = $y * $y;
-            $xy = $x * $y;
-
-            $sum_x += $x;
-            $sum_y += $y;
-            $sum_xy += $xy;
-            $sum_square_x += $square_x;
-            $sum_square_y += $square_y;
-        }
-        
-        $denominator = ($n * $sum_square_x) - ($sum_x * $sum_x);
-        if ($denominator == 0) {
-            return response()->json(['status' => 'error', 'error' => 'Division by zero in linear regression']);
+            $calculatedData[] = [
+                'entry_no' => $index + 1,
+                'expense' => $expense,
+                'units' => $units,
+                'profit_percent' => $entry['tpt'],
+                'break_even_price' => number_format($breakEvenPrice, 2, '.', ''),
+                'target_price' => number_format($targetPrice, 2, '.', '')
+            ];
         }
 
-        $m = (($n * $sum_xy) - ($sum_x * $sum_y)) / $denominator;
-        $b = ($sum_y - ($m * $sum_x)) / $n;
-        
-        $next_x = $n + 1;
-        $y_pred = ($m * $next_x) + $b;
-
-        $r_denom = sqrt(($n * $sum_square_x) - ($sum_x * $sum_x)) * sqrt(($n * $sum_square_y) - ($sum_y * $sum_y));
-        $r = $r_denom != 0 ? (($n * $sum_xy) - ($sum_x * $sum_y)) / $r_denom : 0;
-
-        $tpt = $request->input('tpt');
-        $tpt_mul = $tpt / 100;
-        $s = $y_pred * (1 + $tpt_mul);
-
-        $break_even_fmt = number_format($y_pred, 2, '.', '');
-        $target_fmt = number_format($s, 2, '.', '');
-
-        if (Auth::check()) {
+        // Save to history if logged in
+        if (auth()->check()) {
             CalculatorHistory::create([
-                'user_id' => Auth::id(),
+                'user_id' => auth()->id(),
                 'calculator_type' => 'break_even_price',
-                'input_data' => ['month' => $months, 'unit' => $units, 'tpt' => $tpt],
-                'result_data' => [
-                    'break_even_price' => $break_even_fmt,
-                    'monthly_sales_target' => $target_fmt,
-                    'correlation_coefficient' => $r
-                ]
+                'input_data' => $entries,
+                'result_data' => $calculatedData
             ]);
         }
 
         return response()->json([
             'status' => 'success',
-            'break_even_price' => $break_even_fmt,
-            'monthly_sales_target' => $target_fmt,
-            'correlation_coefficient' => $r
+            'data' => $calculatedData
         ]);
     }
 
@@ -200,7 +165,7 @@ class CalculatorController extends Controller
 
         // Calculate CAC (Customer Acquisition Cost)
         $cac = $marketing_spend / $new_customers;
-        
+
         // Calculate LTV (Customer Lifetime Value)
         $ltv = $avg_revenue * $customer_lifetime;
 
