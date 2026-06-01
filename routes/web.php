@@ -16,6 +16,25 @@ Route::get('/', function () {
         'plans' => \App\Models\Plan::active()->orderBy('sort_order')->get(),
     ]);
 })->name('home');
+Route::get('/privacy-policy', function () {
+    return Inertia::render('PrivacyPolicy',[
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('privacy-policy');
+Route::get('/terms-conditions', function () {
+    return Inertia::render('TermsConditions',[
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('terms-conditions');
+
+Route::get('/disclaimer', function () {
+    return Inertia::render('Disclaimer', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('disclaimer');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

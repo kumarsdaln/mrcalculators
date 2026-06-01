@@ -1,0 +1,661 @@
+{
+    "dashboard": {
+        "title": "Financial Calculators for Smarter Decisions",
+        "subtitle": "Simple tools designed to help business owners plan, price, forecast, and grow with confidence.",
+        "free_access_label": "Free Access",
+        "premium_access_label": "Premium Access",
+        "billing_button_text": "View Plans"
+    },
+    "categories": [
+        {
+            "slug": "sales",
+            "name": "Sales Planning",
+            "description": "Set goals and track revenue targets."
+        },
+        {
+            "slug": "pricing",
+            "name": "Pricing & Profitability",
+            "description": "Understand costs, pricing, and profits."
+        },
+        {
+            "slug": "forecasting",
+            "name": "Forecasting",
+            "description": "Predict future business performance."
+        },
+        {
+            "slug": "marketing",
+            "name": "Marketing Metrics",
+            "description": "Measure customer acquisition and lifetime value."
+        }
+    ],
+    "calculators": [
+        {
+            "id": 1,
+            "slug": "monthly_sales_goal",
+            "title": "Monthly Sales Goal Calculator",
+            "subtitle": "Turn annual goals into monthly targets",
+            "description": "Set a yearly revenue goal and instantly discover how much you need to generate each month to stay on track. Perfect for business owners, sales teams, and entrepreneurs who want clear and achievable targets.",
+            "short_description": "Calculate monthly sales targets.",
+            "icon": "Target",
+            "route": "calculator.monthly-sales-goal",
+            "category": "sales",
+            "tag": "Starter",
+            "badge": "Popular",
+            "featured": true,
+            "recommended": true,
+            "coming_soon": false,
+            "access": {
+                "feature_slug": "monthly_sales_goal",
+                "plan_required": false
+            },
+            "display": {
+                "order": 1,
+                "show_on_dashboard": true,
+                "show_on_homepage": true
+            },
+            "cta": {
+                "button_text": "Use Calculator",
+                "locked_text": "Unlock Calculator"
+            },
+            "seo": {
+                "title": "Monthly Sales Goal Calculator",
+                "description": "Calculate monthly sales targets needed to achieve your annual revenue goals.",
+                "keywords": [
+                    "sales calculator",
+                    "monthly sales target",
+                    "revenue goal calculator"
+                ]
+            },
+            "benefits": [
+                "Break annual goals into monthly targets",
+                "Improve sales planning",
+                "Track business growth",
+                "Set realistic revenue goals"
+            ],
+            "form": {
+                "annual_sales_label": "Annual Revenue Goal ($)",
+                "annual_sales_placeholder": "100000.00",
+                "submit_button": "Calculate Monthly Goal",
+                "processing_text": "Calculating..."
+            },
+            "results": {
+                "title": "Monthly Sales Goal",
+                "monthly_goal_label": "Required Monthly Revenue",
+                "success_message": "This is the average amount you need to generate each month to reach your annual goal."
+            },
+            "how_to_use": {
+                "title": "How to Use This Calculator",
+                "steps": [
+                    {
+                        "title": "Enter Your Annual Goal",
+                        "description": "Add the total revenue you want your business to generate during the year."
+                    },
+                    {
+                        "title": "Review Your Target",
+                        "description": "The calculator divides your annual goal into 12 monthly targets."
+                    },
+                    {
+                        "title": "Create an Action Plan",
+                        "description": "Use your monthly target to guide sales activities and monitor performance."
+                    }
+                ]
+            },
+            "results_help": {
+                "title": "Understanding Your Results",
+                "items": [
+                    {
+                        "title": "Monthly Sales Goal",
+                        "description": "The average amount of revenue you need to generate each month to achieve your annual target."
+                    }
+                ]
+            },
+            "tips": [
+                "Review your monthly performance regularly.",
+                "Adjust goals if market conditions change.",
+                "Track progress weekly rather than monthly.",
+                "Use historical sales data when setting annual targets."
+            ],
+            "faqs": [
+                {
+                    "question": "How is the monthly goal calculated?",
+                    "answer": "The calculator divides your annual revenue target by 12 months."
+                },
+                {
+                    "question": "Can I use this for quarterly planning?",
+                    "answer": "Yes. Once you know your monthly target, you can multiply it by 3 to estimate quarterly goals."
+                },
+                {
+                    "question": "Is this suitable for startups?",
+                    "answer": "Absolutely. It helps startups create realistic revenue targets and growth plans."
+                }
+            ],
+            "example": {
+                "title": "Example Calculation",
+                "input": "$2,500,000 Annual Revenue Goal",
+                "output": "$208,333.33 Monthly Revenue Goal",
+                "description": "If your annual revenue goal is $2.5 million, you need to generate approximately $208,333 each month to stay on track."
+            }
+        },
+        {
+            "id": 2,
+            "slug": "break_even_price",
+            "title": "Break-Even & Pricing Calculator",
+            "subtitle": "Price products with confidence",
+            "description": "Find the minimum price you need to charge to cover costs and start generating profit.",
+            "short_description": "Calculate break-even pricing.",
+            "icon": "Calculator",
+            "route": "calculator.break-even-and-selling-price",
+            "category": "pricing",
+            "tag": "Starter",
+            "badge": null,
+            "featured": true,
+            "recommended": true,
+            "coming_soon": false,
+            "access": {
+                "feature_slug": "break_even_price",
+                "plan_required": false
+            },
+            "display": {
+                "order": 2,
+                "show_on_dashboard": true,
+                "show_on_homepage": true
+            },
+            "cta": {
+                "button_text": "Use Calculator",
+                "locked_text": "Unlock Calculator"
+            },
+            "seo": {
+                "title": "Break-Even Calculator",
+                "description": "Calculate your break-even point and determine the ideal selling price.",
+                "keywords": [
+                    "break even calculator",
+                    "pricing calculator",
+                    "profit calculator"
+                ]
+            },
+            "how_to_use": {
+                "title": "How to Use This Calculator",
+                "steps": [
+                    {
+                        "title": "Enter Your Total Costs",
+                        "description": "Add the total amount you need to cover, including materials, labor, overhead, and any other business expenses."
+                    },
+                    {
+                        "title": "Enter the Number of Units",
+                        "description": "Tell us how many products, services, or units you expect to sell."
+                    },
+                    {
+                        "title": "Set Your Profit Goal",
+                        "description": "Choose the profit percentage you'd like to earn above your costs."
+                    },
+                    {
+                        "title": "Add Additional Scenarios",
+                        "description": "Want to compare different situations? Add multiple entries with different costs, quantities, or profit goals."
+                    },
+                    {
+                        "title": "Review Your Pricing",
+                        "description": "See your break-even price and recommended selling price instantly so you can price with confidence."
+                    }
+                ]
+            },
+            "results_help": {
+                "title": "Understanding Your Results",
+                "items": [
+                    {
+                        "title": "Break-Even Price",
+                        "description": "This is the minimum price you need to charge per unit to cover your costs. At this price, you won't make a profit, but you won't lose money either."
+                    },
+                    {
+                        "title": "Target Selling Price",
+                        "description": "This is the recommended price per unit based on the profit percentage you selected."
+                    },
+                    {
+                        "title": "Profit Goal",
+                        "description": "The percentage of profit you want to earn above your costs."
+                    },
+                    {
+                        "title": "Scenario Comparison",
+                        "description": "If you've added multiple entries, compare different pricing strategies side by side to find the best option."
+                    }
+                ]
+            },
+            "tips": [
+                "Always know your costs before setting prices.",
+                "Don't price based solely on competitors—make sure your pricing supports your profit goals.",
+                "Review your pricing regularly as costs change.",
+                "Use multiple scenarios to see how different profit margins affect your selling price.",
+                "A higher selling price doesn't always mean higher profit if it impacts demand."
+            ],
+            "faqs": [
+                {
+                    "question": "What is a break-even price?",
+                    "answer": "A break-even price is the minimum amount you need to charge per unit to cover all your costs without making a profit or loss."
+                },
+                {
+                    "question": "Why should I add a profit percentage?",
+                    "answer": "Adding a profit percentage helps determine a selling price that not only covers your costs but also generates income for your business."
+                },
+                {
+                    "question": "Can I compare different pricing scenarios?",
+                    "answer": "Yes. Add multiple entries with different costs, quantities, or profit goals to compare results side by side."
+                },
+                {
+                    "question": "Should I use the target selling price exactly?",
+                    "answer": "The target selling price is a recommendation. You may choose to adjust it based on market conditions, customer demand, and competitive pricing."
+                },
+                {
+                    "question": "Who should use this calculator?",
+                    "answer": "Business owners, freelancers, service providers, product sellers, and anyone who needs to determine profitable pricing."
+                }
+            ],
+            "example": {
+                "title": "Example Calculation",
+                "description": "If your total costs are $5,000, you expect to sell 100 units, and you want a 25% profit margin, your break-even price would be $50 per unit and your recommended selling price would be approximately $62.50 per unit."
+            }
+        },
+        {
+            "id": 3,
+            "slug": "future_sales_forecast",
+            "title": "Sales Forecast Calculator",
+            "subtitle": "Plan future growth",
+            "description": "Estimate future sales based on current performance and expected growth trends.",
+            "short_description": "Forecast future revenue.",
+            "icon": "TrendingUp",
+            "route": "calculator.future-sales-forecast",
+            "category": "forecasting",
+            "tag": "Growth",
+            "badge": "Recommended",
+            "featured": true,
+            "recommended": true,
+            "coming_soon": false,
+            "access": {
+                "feature_slug": "future_sales_forecast",
+                "plan_required": true
+            },
+            "display": {
+                "order": 3,
+                "show_on_dashboard": true,
+                "show_on_homepage": true
+            },
+            "cta": {
+                "button_text": "Use Calculator",
+                "locked_text": "Upgrade to Access"
+            },
+            "seo": {
+                "title": "Sales Forecast Calculator",
+                "description": "Forecast future sales and revenue growth using historical business data.",
+                "keywords": [
+                    "sales forecast",
+                    "revenue forecast",
+                    "business planning"
+                ]
+            },
+            "benefits": [
+                "Forecast future sales",
+                "Identify growth trends",
+                "Improve business planning",
+                "Set realistic revenue targets"
+            ],
+            "form": {
+                "sales_label": "Past Monthly Revenue ($)",
+                "sales_placeholder": "0.00",
+                "month_prefix": "Month",
+                "add_button": "Add Another Month",
+                "submit_button": "Forecast Sales",
+                "processing_text": "Generating Forecast..."
+            },
+            "results": {
+                "title": "Sales Forecast Results",
+                "forecast_label": "Predicted Next Month Sales",
+                "forecast_badge": "Forecast",
+                "chart_title": "Sales Trend Projection",
+                "success_message": "Based on your historical sales data, this is the projected revenue for next month."
+            },
+            "how_to_use": {
+                "title": "How to Use This Calculator",
+                "steps": [
+                    {
+                        "title": "Enter Past Sales Data",
+                        "description": "Add your previous monthly revenue figures in chronological order, from oldest to newest."
+                    },
+                    {
+                        "title": "Include Multiple Months",
+                        "description": "The more historical data you provide, the better the forecast can identify trends."
+                    },
+                    {
+                        "title": "Generate Forecast",
+                        "description": "Click Forecast Sales to calculate your estimated revenue for the next month."
+                    },
+                    {
+                        "title": "Review the Trend Chart",
+                        "description": "Compare historical performance with the projected future trend."
+                    }
+                ]
+            },
+            "results_help": {
+                "title": "Understanding Your Results",
+                "items": [
+                    {
+                        "title": "Forecasted Revenue",
+                        "description": "The estimated amount of revenue you may generate next month based on historical trends."
+                    },
+                    {
+                        "title": "Trend Projection",
+                        "description": "A visual representation showing how your sales have changed over time and where they may be heading."
+                    }
+                ]
+            },
+            "tips": [
+                "Use at least 3 months of historical sales data for better accuracy.",
+                "Include your most recent sales figures for realistic projections.",
+                "Update forecasts monthly as new data becomes available.",
+                "Use forecasts as guidance, not guarantees."
+            ],
+            "faqs": [
+                {
+                    "question": "How does the forecast work?",
+                    "answer": "The calculator analyzes historical sales data and identifies trends to estimate future revenue."
+                },
+                {
+                    "question": "How many months should I enter?",
+                    "answer": "At least 3 months is recommended, but adding more historical data can improve forecasting accuracy."
+                },
+                {
+                    "question": "Can I use this for seasonal businesses?",
+                    "answer": "Yes, but forecasts work best when enough historical data is available to capture seasonal patterns."
+                },
+                {
+                    "question": "Is the forecast guaranteed?",
+                    "answer": "No. Forecasts are estimates based on historical trends and should be used as planning tools."
+                }
+            ],
+            "example": {
+                "title": "Example Forecast",
+                "input": [
+                    "$100,000",
+                    "$112,000",
+                    "$125,000"
+                ],
+                "output": "$137,500",
+                "description": "If your recent monthly sales were $100,000, $112,000, and $125,000, the calculator may project approximately $137,500 for the next month based on the growth trend."
+            }
+        },
+        {
+            "id": 4,
+            "slug": "what_if_engine",
+            "title": "What-If Profit Calculator",
+            "subtitle": "Test scenarios before making decisions",
+            "description": "Analyze how pricing, costs, and sales volume changes could impact profits.",
+            "short_description": "Simulate business decisions.",
+            "icon": "Zap",
+            "route": "calculator.what-if-engine",
+            "category": "forecasting",
+            "tag": "Growth",
+            "badge": "Advanced",
+            "featured": true,
+            "recommended": true,
+            "coming_soon": false,
+            "access": {
+                "feature_slug": "what_if_engine",
+                "plan_required": true
+            },
+            "display": {
+                "order": 4,
+                "show_on_dashboard": true,
+                "show_on_homepage": true
+            },
+            "cta": {
+                "button_text": "Use Calculator",
+                "locked_text": "Upgrade to Access"
+            },
+            "seo": {
+                "title": "What-If Profit Calculator",
+                "description": "Model different business scenarios and understand their financial impact.",
+                "keywords": [
+                    "profit calculator",
+                    "business scenarios",
+                    "what if analysis"
+                ]
+            },
+            "benefits": [
+                "Compare multiple business scenarios",
+                "Understand profit impact instantly",
+                "Reduce decision-making risk",
+                "Optimize pricing and sales strategies"
+            ],
+            "form": {
+                "cost_label": "Total Costs ($)",
+                "cost_placeholder": "5000",
+                "price_label": "Selling Price ($)",
+                "price_placeholder": "25",
+                "units_label": "Units Sold",
+                "units_placeholder": "500",
+                "add_button": "Add Scenario",
+                "submit_button": "Analyze Scenarios",
+                "processing_text": "Running Analysis..."
+            },
+            "results": {
+                "title": "Scenario Analysis Results",
+                "revenue_label": "Projected Revenue",
+                "profit_label": "Projected Profit",
+                "margin_label": "Profit Margin",
+                "best_scenario_label": "Best Performing Scenario",
+                "success_message": "Review how different business decisions impact your revenue and profitability."
+            },
+            "how_to_use": {
+                "title": "How to Use This Calculator",
+                "steps": [
+                    {
+                        "title": "Enter Your Current Numbers",
+                        "description": "Start with your current monthly revenue and monthly costs. Use real numbers whenever possible for the most accurate results."
+                    },
+                    {
+                        "title": "Adjust Revenue Scenarios",
+                        "description": "Move the revenue slider to see what happens if sales increase or decrease. This helps you understand the impact of growth opportunities and potential slowdowns."
+                    },
+                    {
+                        "title": "Adjust Cost Scenarios",
+                        "description": "Use the cost slider to simulate rising expenses, cost reductions, or operational changes. See how even small changes affect profitability."
+                    },
+                    {
+                        "title": "Review the Results",
+                        "description": "Watch your projected revenue, costs, profit, and profit margin update instantly as you change each scenario."
+                    },
+                    {
+                        "title": "Compare Different Possibilities",
+                        "description": "Try multiple combinations of revenue and cost changes to identify risks, opportunities, and the most profitable path forward."
+                    }
+                ]
+            },
+            "results_help": {
+                "title": "Understanding Your Results",
+                "items": [
+                    {
+                        "title": "Projected Revenue",
+                        "description": "The estimated amount of money your business would generate under the selected scenario."
+                    },
+                    {
+                        "title": "Projected Costs",
+                        "description": "The estimated expenses your business would incur after applying the selected cost changes."
+                    },
+                    {
+                        "title": "Net Profit",
+                        "description": "The amount remaining after costs are deducted from revenue. Positive numbers indicate profit, while negative numbers indicate a loss."
+                    },
+                    {
+                        "title": "Profit Margin",
+                        "description": "The percentage of revenue that remains as profit. Higher margins generally indicate a healthier business."
+                    },
+                    {
+                        "title": "Scenario Summary",
+                        "description": "A quick assessment of your selected scenario, highlighting potential risks, opportunities, and areas for improvement."
+                    }
+                ]
+            },
+            "tips": [
+                "Test both best-case and worst-case scenarios before making important business decisions.",
+                "A small increase in revenue can often have a larger impact on profit than expected.",
+                "Monitor costs regularly, as rising expenses can quickly reduce profitability.",
+                "Use this calculator during budgeting and planning sessions to prepare for different outcomes.",
+                "Focus on improving profit margin, not just increasing revenue."
+            ],
+            "faqs": [
+                {
+                    "question": "What is a what-if analysis?",
+                    "answer": "A what-if analysis allows you to test different business scenarios and see how changes in revenue or costs could impact profitability."
+                },
+                {
+                    "question": "Who should use this calculator?",
+                    "answer": "Business owners, entrepreneurs, managers, and anyone responsible for planning revenue, expenses, or growth strategies."
+                },
+                {
+                    "question": "Can this predict the future?",
+                    "answer": "No. The calculator provides estimates based on the assumptions you enter. Actual results may vary."
+                },
+                {
+                    "question": "Why is my profit negative?",
+                    "answer": "A negative profit means your projected costs are greater than your projected revenue under the selected scenario."
+                },
+                {
+                    "question": "How can I improve my profit margin?",
+                    "answer": "You can improve profit margin by increasing revenue, reducing costs, improving efficiency, or adjusting pricing strategies."
+                }
+            ],
+            "example": {
+                "title": "Example Scenario",
+                "description": "Imagine your business currently generates $100,000 per month and spends $65,000 on expenses. If revenue increases by 20% while costs increase by only 5%, your profit grows significantly. This calculator helps you visualize those changes before making real-world decisions."
+            }
+        },
+        {
+            "id": 5,
+            "slug": "ltv_cac_ratio",
+            "title": "Marketing Cost Per Customer Calculator",
+            "subtitle": "Find out which marketing channels bring customers at the lowest cost.",
+            "description": "Compare advertising channels, track customer acquisition costs, and discover where your marketing budget delivers the best results.",
+            "short_description": "Calculate LTV and CAC.",
+            "icon": "BarChart",
+            "route": "calculator.ltv-cac-ratio",
+            "category": "marketing",
+            "tag": "Scale",
+            "badge": "Marketing",
+            "featured": true,
+            "recommended": true,
+            "coming_soon": false,
+            "access": {
+                "feature_slug": "ltv_cac_ratio",
+                "plan_required": true
+            },
+            "display": {
+                "order": 5,
+                "show_on_dashboard": true,
+                "show_on_homepage": true
+            },
+            "cta": {
+                "button_text": "Use Calculator",
+                "locked_text": "Upgrade to Access"
+            },
+            "seo": {
+                "title": "Customer Value Calculator",
+                "description": "Calculate customer lifetime value and compare it to acquisition costs.",
+                "keywords": [
+                    "ltv cac calculator",
+                    "customer lifetime value",
+                    "marketing roi"
+                ]
+            },
+            "benefits": [
+                "Measure marketing efficiency",
+                "Understand customer profitability",
+                "Improve advertising decisions",
+                "Scale your business with confidence"
+            ],
+            "form": {
+                "ltv_label": "Customer Lifetime Value ($)",
+                "ltv_placeholder": "1000",
+                "cac_label": "Customer Acquisition Cost ($)",
+                "cac_placeholder": "250",
+                "submit_button": "Calculate Ratio",
+                "processing_text": "Calculating..."
+            },
+            "how_to_use": {
+                "title": "How to Use This Calculator",
+                "steps": [
+                    {
+                        "title": "Add a Marketing Channel",
+                        "description": "Enter the name of a marketing source such as Facebook Ads, Google Ads, Referrals, Email Marketing, or Events."
+                    },
+                    {
+                        "title": "Enter Your Marketing Spend",
+                        "description": "Add the total amount spent on that marketing channel."
+                    },
+                    {
+                        "title": "Enter Customers Acquired",
+                        "description": "Enter the number of customers generated from that marketing effort."
+                    },
+                    {
+                        "title": "Add Additional Channels",
+                        "description": "Compare multiple marketing channels side by side."
+                    },
+                    {
+                        "title": "Review Your Results",
+                        "description": "See which channels generate customers at the lowest cost and where your marketing budget performs best."
+                    }
+                ]
+            },
+            "results_help": {
+                "title": "Understanding Your Results",
+                "items": [
+                    {
+                        "title": "Cost Per Customer",
+                        "description": "The average amount spent to acquire one customer from a specific marketing channel."
+                    },
+                    {
+                        "title": "Best Performing Channel",
+                        "description": "The marketing source that generates customers at the lowest cost."
+                    },
+                    {
+                        "title": "Total Marketing Spend",
+                        "description": "The combined amount invested across all marketing channels."
+                    },
+                    {
+                        "title": "Total Customers Acquired",
+                        "description": "The total number of customers generated from all marketing activities."
+                    }
+                ]
+            },
+            "tips": [
+                "Most healthy businesses target an LTV:CAC ratio of at least 3:1.",
+                "Focus on increasing customer retention to improve lifetime value.",
+                "Reducing acquisition costs can significantly improve profitability.",
+                "Review this metric regularly as marketing costs and customer behavior change.",
+                "A strong ratio often indicates that you can safely invest more in growth."
+            ],
+            "faqs": [
+                {
+                    "question": "What is Customer Acquisition Cost (CAC)?",
+                    "answer": "CAC measures the average amount spent to acquire one new customer through marketing and sales efforts."
+                },
+                {
+                    "question": "What is Customer Lifetime Value (LTV)?",
+                    "answer": "LTV estimates the total revenue a customer generates throughout their relationship with your business."
+                },
+                {
+                    "question": "What is a good LTV:CAC ratio?",
+                    "answer": "Many businesses aim for a ratio of 3:1 or higher. This means customers generate at least three times more value than the cost to acquire them."
+                },
+                {
+                    "question": "What if my ratio is below 1:1?",
+                    "answer": "A ratio below 1:1 means you're spending more to acquire customers than they're generating in value, which may not be sustainable long term."
+                },
+                {
+                    "question": "Can a very high ratio be a problem?",
+                    "answer": "Sometimes. If your ratio is extremely high, it could indicate that you're under-investing in marketing and missing growth opportunities."
+                }
+            ],
+            "example": {
+                "title": "Example Calculation",
+                "description": "Imagine you spend $10,000 on marketing and acquire 250 customers. Your acquisition cost is $40 per customer. If each customer generates $50 per month and stays for 12 months, their lifetime value is $600. This creates an LTV:CAC ratio of 15:1, indicating a highly profitable customer acquisition strategy."
+            }
+        }
+    ]
+}

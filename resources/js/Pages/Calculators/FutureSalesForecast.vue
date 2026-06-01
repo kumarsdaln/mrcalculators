@@ -6,6 +6,15 @@ import { ref } from 'vue';
 import axios from 'axios';
 import VueApexCharts from 'vue3-apexcharts';
 
+import { useCalculator } from '@/Composable/useCalculator';
+import CalculatorHero from '@/Components/Calculators/CalculatorHero.vue';
+import CalculatorHowToUse from '@/Components/Calculators/CalculatorHowToUse.vue';
+import CalculatorResultsHelp from '@/Components/Calculators/CalculatorResultsHelp.vue';
+import CalculatorTips from '@/Components/Calculators/CalculatorTips.vue';
+import CalculatorFAQ from '@/Components/Calculators/CalculatorFAQ.vue';
+
+const calculator = useCalculator('future_sales_forecast');
+
 const months = ref(['', '', '']); // Start with 3 inputs
 
 const result = ref(null);
@@ -96,7 +105,7 @@ const calculate = async () => {
 </script>
 
 <template>
-    <Head title="Sales Forecaster" />
+    <Head :title="calculator.seo.title" :description="calculator.seo.description" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -104,27 +113,16 @@ const calculate = async () => {
                 <Link :href="route('dashboard')" class="text-[#131747]/60 hover:text-[#FF4040] transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                 </Link>
-                <h2 class="font-bold text-2xl text-[#131747] leading-tight">Sales Forecaster</h2>
+                <h2 class="font-bold text-2xl text-[#131747] leading-tight">{{calculator.title}}</h2>
             </div>
         </template>
-
+        <CalculatorHero :calculator="calculator" />
         <div class="py-12 bg-transparent min-h-screen">
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-8">
-                
+            <div class="space-y-8">
                 <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-lg shadow-[#131747]/5 border border-[#131747]/10">
-                    <div class="mb-8 max-w-3xl">
-                        <div class="w-14 h-14 bg-[#131747]/5 text-[#131747] rounded-2xl flex items-center justify-center mb-6 border border-[#131747]/10">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                        </div>
-                        <h3 class="text-3xl font-extrabold text-[#131747] mb-3">Predict Your Next Month's Sales</h3>
-                        <p class="text-[#131747]/70 leading-relaxed text-lg">
-                            Enter your past sales numbers in order, from oldest to newest. We'll use this trend to estimate what your sales will look like next month.
-                        </p>
-                    </div>
-
                     <form @submit.prevent="calculate">
                         
-                        <div class="bg-white border border-[#131747]/10 rounded-2xl p-6 mb-8 shadow-sm">
+                        <div>
                             <div class="mb-4 pb-4 border-b border-[#131747]/10">
                                 <span class="text-xs font-bold uppercase tracking-[0.1em] text-[#131747]/60">Past Monthly Revenue ($)</span>
                             </div>
@@ -168,25 +166,13 @@ const calculate = async () => {
                     </form>
                 </div>
 
-                <!-- Documentation Module -->
-                <div class="bg-white border border-[#131747]/10 p-8 rounded-[2rem] mt-8 shadow-sm">
-                    <h4 class="text-lg font-bold text-[#131747] mb-6 flex items-center gap-3">
-                        <span class="bg-[#131747]/5 p-2 rounded-lg text-[#131747]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </span>
-                        How It Works
-                    </h4>
-                    <div class="space-y-4 text-[#131747]/70 text-sm leading-relaxed">
-                        <p>Our forecaster looks at your recent sales history to draw a trendline. By following this trendline, it gives you a solid estimate for what you should expect to make next month.</p>
-                        <div class="bg-[#131747]/5 p-5 border border-[#131747]/10 rounded-2xl mt-4">
-                            <p class="text-xs font-bold text-[#131747] uppercase tracking-[0.1em] mb-2">Example</p>
-                            <p class="font-mono text-sm">
-                                "Let's say your last three months brought in $100K, $112K, and $125K. You type these in.<br/><br/>
-                                The tool maps this steady growth and shows you should target <strong class="text-[#131747]">$137,500</strong> for next month."
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <CalculatorHowToUse :title="calculator.how_to_use.title" :steps="calculator.how_to_use.steps" />
+
+                <CalculatorResultsHelp :title="calculator.results_help.title" :items="calculator.results_help.items" />
+
+                <CalculatorTips :tips="calculator.tips" />
+
+                <CalculatorFAQ :faqs="calculator.faqs" />
 
             </div>
         </div>

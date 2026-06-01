@@ -6,6 +6,15 @@ import { ref } from 'vue';
 import axios from 'axios';
 import VueApexCharts from 'vue3-apexcharts';
 
+import { useCalculator } from '@/Composable/useCalculator';
+import CalculatorHero from '@/Components/Calculators/CalculatorHero.vue';
+import CalculatorHowToUse from '@/Components/Calculators/CalculatorHowToUse.vue';
+import CalculatorResultsHelp from '@/Components/Calculators/CalculatorResultsHelp.vue';
+import CalculatorTips from '@/Components/Calculators/CalculatorTips.vue';
+import CalculatorFAQ from '@/Components/Calculators/CalculatorFAQ.vue';
+
+const calculator = useCalculator('ltv_cac_ratio');
+
 const form = ref({
     marketing_spend: '',
     new_customers: '',
@@ -101,7 +110,7 @@ const calculate = async () => {
 </script>
 
 <template>
-    <Head title="LTV to CAC Ratio" />
+    <Head :title="calculator.seo.title" :description="calculator.seo.description" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -110,27 +119,17 @@ const calculate = async () => {
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                 </Link>
                 <div class="flex items-center gap-3">
-                    <h2 class="font-bold text-2xl text-[#131747] leading-tight">LTV to CAC Ratio Calculator</h2>
+                    <h2 class="font-bold text-2xl text-[#131747] leading-tight">{{calculator.title}}</h2>
                 </div>
             </div>
         </template>
-
+        <CalculatorHero :calculator="calculator" />
         <div class="py-12 bg-transparent min-h-screen">
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-8">
-                
+            <div class="space-y-8">
+        
                 <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-lg shadow-[#131747]/5 border border-[#131747]/10">
-                    <div class="mb-10 max-w-3xl">
-                        <div class="w-14 h-14 bg-[#131747]/5 text-[#131747] rounded-2xl flex items-center justify-center mb-6 border border-[#131747]/10">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
-                        </div>
-                        <h3 class="text-3xl font-extrabold text-[#131747] mb-3">Is Your Marketing Profitable?</h3>
-                        <p class="text-[#131747]/70 leading-relaxed max-w-3xl text-lg">
-                            Compare how much it costs to get a new customer vs. how much money they spend with you over time. This helps you see if your business is burning cash or making money.
-                        </p>
-                    </div>
-
                     <form @submit.prevent="calculate">
-                        <div class="bg-[#131747]/5 border border-[#131747]/10 rounded-[2rem] p-8 mb-8">
+                        <div class="mb-6">
                             
                             <!-- Inputs Grid -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -175,31 +174,13 @@ const calculate = async () => {
                     </form>
                 </div>
 
-                <!-- Documentation Module -->
-                <div class="bg-white border border-[#131747]/10 p-8 rounded-[2rem] mt-8 shadow-sm">
-                    <h4 class="text-lg font-bold text-[#131747] mb-6 flex items-center gap-3">
-                        <span class="bg-[#131747]/5 p-2 rounded-lg text-[#131747]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </span>
-                        How It Works
-                    </h4>
-                    <div class="space-y-4 text-[#131747]/70 text-sm leading-relaxed">
-                        <p>This tool figures out if your business model works. It compares exactly how much you pay to buy a customer against how much money that customer pays you before they leave.</p>
-                        <p>What does your LTV to CAC Ratio mean?<br/>
-                           - A ratio of <strong class="text-[#FF4040]">1x</strong> means you lose money.<br/>
-                           - A ratio of <strong class="text-[#131747]">3x</strong> is great! It means you make $3 for every $1 spent on ads.<br/>
-                           - A ratio of <strong class="text-[#131747]">5x+</strong> means you aren't spending enough on marketing and could grow much faster. 
-                        </p>
-                        <div class="bg-[#131747]/5 p-5 border border-[#131747]/10 rounded-2xl mt-4">
-                            <p class="text-xs font-bold text-[#131747] uppercase tracking-[0.1em] mb-2">Example</p>
-                            <p class="font-mono text-sm">
-                                "You spend $10,000 on ads and get 100 new customers. Your Cost per Customer (CAC) is <strong class="text-[#131747]">$100.00</strong>.<br/>
-                                These users pay $50/month and stay for 14 months on average. Their Lifetime Value (LTV) is <strong class="text-[#131747]">$700.00</strong>.<br/><br/>
-                                Your ratio is <strong class="text-[#131747]">7x</strong>. Because it is so high, you know you should safely start spending more on ads next month!"
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <CalculatorHowToUse :title="calculator.how_to_use.title" :steps="calculator.how_to_use.steps" />
+
+                <CalculatorResultsHelp :title="calculator.results_help.title" :items="calculator.results_help.items" />
+
+                <CalculatorTips :tips="calculator.tips" />
+
+                <CalculatorFAQ :faqs="calculator.faqs" />
 
             </div>
         </div>

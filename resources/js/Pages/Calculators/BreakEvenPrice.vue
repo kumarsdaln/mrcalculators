@@ -5,6 +5,14 @@
     import { ref } from 'vue';
     import axios from 'axios';
     import VueApexCharts from 'vue3-apexcharts';
+    import { useCalculator } from '@/Composable/useCalculator';
+    import CalculatorHero from '@/Components/Calculators/CalculatorHero.vue';
+    import CalculatorHowToUse from '@/Components/Calculators/CalculatorHowToUse.vue';
+    import CalculatorFAQ from '@/Components/Calculators/CalculatorFAQ.vue';
+import CalculatorResultsHelp from '@/Components/Calculators/CalculatorResultsHelp.vue';
+import CalculatorTips from '@/Components/Calculators/CalculatorTips.vue';
+
+    const calculator = useCalculator('break_even_price');
 
     // Each row now tracks its own profit percentage (tpt)
     const months = ref([
@@ -76,7 +84,7 @@
 
 <template>
 
-    <Head title="Break-Even Calculator" />
+    <Head :title="calculator.seo.title" :description="calculator.seo.description" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -87,33 +95,17 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </Link>
-                <h2 class="font-bold text-2xl text-[#131747] leading-tight">Break-Even Calculator</h2>
+                <h2 class="font-bold text-2xl text-[#131747] leading-tight">{{ calculator.title }}</h2>
             </div>
         </template>
+        <CalculatorHero :calculator="calculator"/>
         <div class="py-12 bg-transparent min-h-screen">
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-8">
-
+            <div class="space-y-8">
                 <!-- Header Section -->
                 <div
                     class="bg-white p-8 md:p-10 rounded-[2rem] shadow-lg shadow-[#131747]/5 border border-[#131747]/10">
-                    <div class="mb-8 max-w-3xl">
-                        <div
-                            class="w-14 h-14 bg-[#131747]/5 text-[#131747] rounded-2xl flex items-center justify-center mb-6 border border-[#131747]/10">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-3xl font-extrabold text-[#131747] mb-3">Calculate Your Break-Even Price</h3>
-                        <p class="text-[#131747]/70 leading-relaxed text-lg">
-                            Enter your costs, units, and desired profit for each entry. We will provide a specific price
-                            analysis for every row.
-                        </p>
-                    </div>
-
                     <form @submit.prevent="calculate">
-                        <div class="bg-white border border-[#131747]/10 rounded-2xl p-6 mb-8 shadow-sm">
+                        <div class="mb-8">
                             <!-- Table Headers -->
                             <div class="hidden md:grid grid-cols-12 gap-4 mb-4 pb-2 border-b border-[#131747]/10 px-2">
                                 <div class="col-span-1 text-xs font-bold uppercase tracking-widest text-[#131747]/40">#
@@ -228,18 +220,13 @@
                 </div>
 
                 <!-- Footer Documentation -->
-                <div class="bg-white border border-[#131747]/10 p-8 rounded-[2rem] shadow-sm">
-                    <h4 class="text-lg font-bold text-[#131747] mb-4">How Individual Calculation Works</h4>
-                    <p class="text-[#131747]/70 text-sm leading-relaxed">
-                        Unlike traditional calculators that average your numbers, this tool treats every entry as a
-                        unique
-                        scenario.
-                        The <strong>Break-Even Price</strong> is your base cost per unit, and the <strong>Target Selling
-                            Price</strong>
-                        adds your specific profit margin on top of that base cost.
-                    </p>
-                </div>
+                <CalculatorHowToUse :title="calculator.how_to_use.title" :steps="calculator.how_to_use.steps" />
 
+                <CalculatorResultsHelp :title="calculator.results_help.title" :items="calculator.results_help.items" />
+
+                <CalculatorTips :tips="calculator.tips" />
+
+                <CalculatorFAQ :faqs="calculator.faqs" />
             </div>
         </div>
 

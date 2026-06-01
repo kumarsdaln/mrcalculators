@@ -2,6 +2,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
+import { useCalculator } from '@/Composable/useCalculator';
+import CalculatorHero from '@/Components/Calculators/CalculatorHero.vue';
+import CalculatorHowToUse from '@/Components/Calculators/CalculatorHowToUse.vue';
+import CalculatorResultsHelp from '@/Components/Calculators/CalculatorResultsHelp.vue';
+import CalculatorTips from '@/Components/Calculators/CalculatorTips.vue';
+import CalculatorFAQ from '@/Components/Calculators/CalculatorFAQ.vue';
+
+const calculator = useCalculator('what_if_engine');
 
 const baseRevenue = ref(100000);
 const baseCosts = ref(65000);
@@ -46,7 +54,7 @@ const summaryRecommendation = computed(() => {
 </script>
 
 <template>
-    <Head title="What-If Simulator" />
+    <Head :title="calculator.seo.title" :description="calculator.seo.description" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -55,27 +63,17 @@ const summaryRecommendation = computed(() => {
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                 </Link>
                 <div class="flex items-center gap-3">
-                    <h2 class="font-bold text-2xl text-[#131747] leading-tight">What-If Simulator</h2>
+                    <h2 class="font-bold text-2xl text-[#131747] leading-tight">{{calculator.title}}</h2>
                 </div>
             </div>
         </template>
+        <CalculatorHero :calculator="calculator" />
 
         <div class="py-12 bg-transparent min-h-screen">
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 space-y-8">
+            <div class="space-y-8">
                 
                 <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-lg shadow-[#131747]/5 border border-[#131747]/10">
-                    <div class="mb-10 max-w-3xl">
-                        <div class="w-14 h-14 bg-[#131747]/5 text-[#131747] rounded-2xl flex items-center justify-center mb-6 border border-[#131747]/10">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                        </div>
-                        <h3 class="text-3xl font-extrabold text-[#131747] mb-3">Simulate Business Changes</h3>
-                        <p class="text-[#131747]/70 leading-relaxed max-w-3xl text-lg">
-                            Play with the sliders to see what happens to your profits if your revenue drops or your costs go up. This helps you plan for unexpected changes.
-                        </p>
-                    </div>
-
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                        
                         <!-- Inputs & Sliders (Left 7 Cols) -->
                         <div class="lg:col-span-7 space-y-8">
                             
@@ -130,7 +128,6 @@ const summaryRecommendation = computed(() => {
                             </div>
 
                         </div>
-
                         <!-- Realtime Simulated Result Board (Right 5 Cols) -->
                         <div class="lg:col-span-5 relative">
                             
@@ -185,6 +182,14 @@ const summaryRecommendation = computed(() => {
                     </div>
 
                 </div>
+
+                <CalculatorHowToUse :title="calculator.how_to_use.title" :steps="calculator.how_to_use.steps" />
+
+                <CalculatorResultsHelp :title="calculator.results_help.title" :items="calculator.results_help.items" />
+
+                <CalculatorTips :tips="calculator.tips" />
+
+                <CalculatorFAQ :faqs="calculator.faqs" />
             </div>
         </div>
     </AuthenticatedLayout>
