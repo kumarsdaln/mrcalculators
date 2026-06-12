@@ -60,6 +60,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'catalog' => [
                 'features' => CalculatorCatalog::all(),
+                'calculators' => CalculatorCatalog::calculatorContent()['calculators'],
             ],
         ];
     }

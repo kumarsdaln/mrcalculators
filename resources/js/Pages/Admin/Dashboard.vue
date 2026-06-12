@@ -1,95 +1,231 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import AdminNav from '@/Components/AdminNav.vue';
-import { Head } from '@inertiajs/vue3';
+    import AdminLayout from '@/Layouts/AdminLayout.vue';
+    import { Head, Link } from '@inertiajs/vue3';
 
-defineProps({
-    stats: {
-        type: Object,
-        required: true,
-    },
-    stripeConfigured: {
-        type: Boolean,
-        required: true,
-    },
-});
+    defineProps({
+        stats: {
+            type: Object,
+            required: true,
+        },
+        stripeConfigured: {
+            type: Boolean,
+            required: true,
+        },
+    });
 </script>
 
 <template>
+
     <Head title="Admin Dashboard" />
 
-    <AuthenticatedLayout>
+    <AdminLayout>
         <template #header>
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#FF4040]">
-                    Operations workspace
-                </p>
-                <h2 class="mt-2 text-2xl font-bold leading-tight text-[#131747]">
-                    Admin Command Center
-                </h2>
-            </div>
-        </template>
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 
-        <div class="py-10">
-            <div class="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
-                
-                <AdminNav active="Overview" />
 
-                <!-- OVERVIEW TAB -->
-                <div class="space-y-8 animate-fade-in">
-                    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                        <div class="rounded-[1.5rem] border border-[#131747]/10 bg-white p-6 shadow-sm shadow-[#131747]/5">
-                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#131747]/45">Total Users</p>
-                            <p class="mt-3 text-4xl font-extrabold text-[#131747]">{{ stats.users }}</p>
-                        </div>
-                        <div class="rounded-[1.5rem] border border-[#131747]/10 bg-white p-6 shadow-sm shadow-[#131747]/5">
-                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#131747]/45">System Admins</p>
-                            <p class="mt-3 text-4xl font-extrabold text-[#131747]">{{ stats.admins }}</p>
-                        </div>
-                        <div class="rounded-[1.5rem] border border-[#131747]/10 bg-[#131747] text-white p-6 shadow-lg shadow-[#131747]/10 relative overflow-hidden">
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,64,64,0.3),_transparent_60%)]"></div>
-                            <div class="relative z-10">
-                                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">Active Subscribers</p>
-                                <p class="mt-3 text-4xl font-extrabold">{{ stats.active_subscribers }}</p>
-                            </div>
-                        </div>
-                        <div class="rounded-[1.5rem] border border-[#131747]/10 bg-white p-6 shadow-sm shadow-[#131747]/5">
-                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#FF4040]/70">Past Due Accounts</p>
-                            <p class="mt-3 text-4xl font-extrabold text-[#131747]">{{ stats.past_due_subscribers }}</p>
-                        </div>
-                        <div class="rounded-[1.5rem] border border-[#131747]/10 bg-white p-6 shadow-sm shadow-[#131747]/5">
-                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#131747]/45">Live Plans</p>
-                            <p class="mt-3 text-4xl font-extrabold text-[#131747]">{{ stats.active_plans }}</p>
-                        </div>
-                        <div class="rounded-[1.5rem] border border-[#FF4040]/30 bg-[#FF4040]/5 p-6 shadow-sm">
-                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#FF4040]">MRR Estimate</p>
-                            <p class="mt-3 text-4xl font-extrabold text-[#FF4040]">{{ stats.mrr_estimate }}</p>
-                        </div>
-                    </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#FF4040]">
+                        Administration
+                    </p>
 
-                    <div
-                        v-if="!stripeConfigured"
-                        class="rounded-[1.75rem] border border-[#FF4040]/20 bg-[#FF4040]/8 p-6 text-sm leading-6 text-[#131747]/75 flex items-start gap-4"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#FF4040] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                        <div>
-                            <p class="font-bold text-[#131747] mb-1 text-base">Stripe Inactive</p>
-                            <p>Stripe is not fully configured yet. You can manage plans and roles here now, then add live Stripe keys and price IDs to your <code>.env</code> file to activate checkout workflows automatically.</p>
-                        </div>
-                    </div>
+                    <h1 class="mt-2 text-4xl font-black tracking-tight text-[#131747]">
+                        Dashboard
+                    </h1>
+
+                    <p class="mt-2 text-sm text-[#131747]/60">
+                        Monitor users, subscriptions, plans, and platform activity.
+                    </p>
+                </div>
+
+                <div class="flex gap-3">
+                    <Link :href="route('admin.plans.index')"
+                        class="rounded-xl bg-[#131747] px-5 py-3 text-sm font-bold text-white hover:bg-[#FF4040]">
+                    Create Plan
+                    </Link>
+
+                    <Link :href="route('admin.users.index')"
+                        class="rounded-xl border border-[#131747]/10 bg-white px-5 py-3 text-sm font-bold text-[#131747]">
+                    Manage Users
+                    </Link>
                 </div>
 
             </div>
+
+
+        </template>
+
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+
+
+            <!-- Revenue -->
+            <div class="rounded-[2rem] bg-[#131747] p-6 text-white shadow-xl">
+                <p class="text-xs uppercase tracking-widest text-white/50">
+                    Monthly Revenue
+                </p>
+
+                <h3 class="mt-4 text-4xl font-black">
+                    {{ stats.mrr_estimate }}
+                </h3>
+
+                <p class="mt-2 text-sm text-white/60">
+                    Estimated recurring revenue
+                </p>
+            </div>
+
+            <!-- Subscribers -->
+            <div class="rounded-[2rem] border border-[#131747]/10 bg-white p-6">
+                <p class="text-xs uppercase tracking-widest text-[#131747]/50">
+                    Active Subscribers
+                </p>
+
+                <h3 class="mt-4 text-4xl font-black text-[#131747]">
+                    {{ stats.active_subscribers }}
+                </h3>
+
+                <p class="mt-2 text-sm text-green-600">
+                    Active paying customers
+                </p>
+            </div>
+
+            <!-- Users -->
+            <div class="rounded-[2rem] border border-[#131747]/10 bg-white p-6">
+                <p class="text-xs uppercase tracking-widest text-[#131747]/50">
+                    Total Users
+                </p>
+
+                <h3 class="mt-4 text-4xl font-black text-[#131747]">
+                    {{ stats.users }}
+                </h3>
+
+                <p class="mt-2 text-sm text-[#131747]/60">
+                    Registered accounts
+                </p>
+            </div>
+
+            <!-- Past Due -->
+            <div class="rounded-[2rem] border border-red-200 bg-red-50 p-6">
+                <p class="text-xs uppercase tracking-widest text-red-500">
+                    Past Due
+                </p>
+
+                <h3 class="mt-4 text-4xl font-black text-red-600">
+                    {{ stats.past_due_subscribers }}
+                </h3>
+
+                <p class="mt-2 text-sm text-red-500">
+                    Require attention
+                </p>
+            </div>
+
+
         </div>
-    </AuthenticatedLayout>
+
+        <div class="grid gap-6 lg:grid-cols-3 mt-8">
+
+
+            <!-- Quick Actions -->
+            <div class="lg:col-span-2 rounded-[2rem] border border-[#131747]/10 bg-white p-8">
+                <h3 class="text-xl font-black text-[#131747]">
+                    Quick Actions
+                </h3>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+
+                    <Link :href="route('admin.users.index')"
+                        class="rounded-2xl bg-[#F8F9FC] p-5 text-center hover:bg-[#131747] hover:text-white transition">
+                    Users
+                    </Link>
+
+                    <Link :href="route('admin.plans.index')"
+                        class="rounded-2xl bg-[#F8F9FC] p-5 text-center hover:bg-[#131747] hover:text-white transition">
+                    Plans
+                    </Link>
+
+                    <Link :href="route('admin.subscriptions.index')"
+                        class="rounded-2xl bg-[#F8F9FC] p-5 text-center hover:bg-[#131747] hover:text-white transition">
+                    Subscriptions
+                    </Link>
+
+                    <Link href="route('admin.settings')"
+                        class="rounded-2xl bg-[#F8F9FC] p-5 text-center hover:bg-[#131747] hover:text-white transition">
+                    Settings
+                    </Link>
+
+                </div>
+            </div>
+
+            <!-- System Status -->
+            <div class="rounded-[2rem] border border-[#131747]/10 bg-white p-8">
+                <h3 class="text-xl font-black text-[#131747]">
+                    System Status
+                </h3>
+
+                <div class="mt-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span>Stripe</span>
+
+                        <span :class="stripeConfigured
+                            ? 'text-green-600'
+                            : 'text-red-500'">
+                            {{ stripeConfigured ? 'Connected' : 'Setup Required' }}
+                        </span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span>Plans</span>
+
+                        <span class="text-green-600">
+                            {{ stats.active_plans }} Active
+                        </span>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span>Admins</span>
+
+                        <span class="text-[#131747]">
+                            {{ stats.admins }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Recent Activity Placeholder -->
+
+        <div class="mt-8 rounded-[2rem] border border-[#131747]/10 bg-white p-8">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-black text-[#131747]">
+                    Recent Activity
+                </h3>
+
+                <span class="text-sm text-[#131747]/50">
+                    Coming Soon
+                </span>
+            </div>
+
+            <p class="mt-4 text-[#131747]/60">
+                User registrations, subscription changes, and payment activity will appear here.
+            </p>
+
+        </div>
+    </AdminLayout>
 </template>
 
 <style>
-.animate-fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    .animate-fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>

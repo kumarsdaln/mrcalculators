@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Plan;
+use App\Models\CalculatorTool;
 use App\Support\CalculatorCatalog;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +14,7 @@ class PlanSeeder extends Seeder
      */
     public function run(): void
     {
-        Plan::query()->updateOrCreate(
+        $starter = Plan::query()->updateOrCreate(
             ['slug' => 'starter'],
             [
                 'name' => 'Starter',
@@ -34,8 +35,12 @@ class PlanSeeder extends Seeder
                 ],
             ]
         );
+        $this->syncPlanTools($starter, [
+            'monthly_sales_goal',
+            'break_even_price',
+        ]);
 
-        Plan::query()->updateOrCreate(
+        $growth = Plan::query()->updateOrCreate(
             ['slug' => 'growth'],
             [
                 'name' => 'Growth',
@@ -58,8 +63,14 @@ class PlanSeeder extends Seeder
                 ],
             ]
         );
+        $this->syncPlanTools($growth, [
+            'monthly_sales_goal',
+            'break_even_price',
+            'future_sales_forecast',
+            'what_if_engine',
+        ]);
 
-        Plan::query()->updateOrCreate(
+        $scale = Plan::query()->updateOrCreate(
             ['slug' => 'scale'],
             [
                 'name' => 'Scale',
@@ -76,5 +87,28 @@ class PlanSeeder extends Seeder
                 'feature_access' => CalculatorCatalog::featureSlugs(),
             ]
         );
+        $this->syncPlanTools($scale, CalculatorTool::query()->pluck('slug')->all());
+    }
+
+    /**
+     * Attach calculator tools and keep feature_access mirrored for old code paths.
+     *
+     * @param  array<int, string>  $slugs
+     */
+    private function syncPlanTools(Plan $plan, array $slugs): void
+    {
+        $toolIds = CalculatorTool::query()
+            ->whereIn('slug', $slugs)
+            ->pluck('id')
+            ->all();
+
+        $plan->calculatorTools()->sync($toolIds);
+
+        $plan->forceFill([
+            'feature_access' => array_values(array_unique([
+                ...$slugs,
+                ...collect($plan->feature_access ?? [])->filter(fn (string $slug) => $slug === 'audit_history')->all(),
+            ])),
+        ])->save();
     }
 }

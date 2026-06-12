@@ -5,6 +5,7 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -13,7 +14,9 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'plans' => \App\Models\Plan::active()->orderBy('sort_order')->get(),
+        'plans' => Schema::hasTable('plans')
+            ? \App\Models\Plan::active()->orderBy('sort_order')->get()
+            : [],
     ]);
 })->name('home');
 Route::get('/privacy-policy', function () {
@@ -77,14 +80,29 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         
-        Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users.index');
+        Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
+        Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
+        Route::get('/admin/users/{user}', [AdminController::class, 'showUser'])->name('admin.users.show');
+        Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
         Route::patch('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
         
-        Route::get('/admin/plans', [AdminController::class, 'plans'])->name('admin.plans');
+        Route::get('/admin/plans', [AdminController::class, 'plans'])->name('admin.plans.index');
+        Route::get('/admin/plans/create', [AdminController::class, 'createPlan'])->name('admin.plans.create');
         Route::post('/admin/plans', [AdminController::class, 'storePlan'])->name('admin.plans.store');
+        Route::get('/admin/plans/{plan}', [AdminController::class, 'showPlan'])->name('admin.plans.show');
+        Route::get('/admin/plans/{plan}/edit', [AdminController::class, 'editPlan'])->name('admin.plans.edit');
         Route::patch('/admin/plans/{plan}', [AdminController::class, 'updatePlan'])->name('admin.plans.update');
+
+        Route::get('/admin/tools', [AdminController::class, 'tools'])->name('admin.tools.index');
+        Route::get('/admin/tools/create', [AdminController::class, 'createTool'])->name('admin.tools.create');
+        Route::post('/admin/tools', [AdminController::class, 'storeTool'])->name('admin.tools.store');
+        Route::get('/admin/tools/{tool}', [AdminController::class, 'showTool'])->name('admin.tools.show');
+        Route::get('/admin/tools/{tool}/edit', [AdminController::class, 'editTool'])->name('admin.tools.edit');
+        Route::patch('/admin/tools/{tool}', [AdminController::class, 'updateTool'])->name('admin.tools.update');
         
-        Route::get('/admin/subscriptions', [AdminController::class, 'subscriptions'])->name('admin.subscriptions');
+        Route::get('/admin/subscriptions', [AdminController::class, 'subscriptions'])->name('admin.subscriptions.index');
+        Route::get('/admin/subscriptions/{subscription}', [AdminController::class, 'showSubscription'])->name('admin.subscriptions.show');
     });
 });
 

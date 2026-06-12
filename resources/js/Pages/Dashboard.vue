@@ -1,11 +1,11 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head, Link } from '@inertiajs/vue3';
-    import calculatorData from '@/data/calculators.json';
+    import { Head, Link, usePage } from '@inertiajs/vue3';
     import CalculatorCard from '@/Components/Calculators/CalculatorCard.vue';
     import { useSubscription } from '@/Composable/useSubscription';
 
-    const calculators = calculatorData.calculators;
+    const page = usePage();
+    const calculators = page.props.catalog?.calculators ?? [];
     import {
         Target,
         Calculator,

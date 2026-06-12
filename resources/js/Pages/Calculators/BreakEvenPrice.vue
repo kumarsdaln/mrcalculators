@@ -9,8 +9,8 @@
     import CalculatorHero from '@/Components/Calculators/CalculatorHero.vue';
     import CalculatorHowToUse from '@/Components/Calculators/CalculatorHowToUse.vue';
     import CalculatorFAQ from '@/Components/Calculators/CalculatorFAQ.vue';
-import CalculatorResultsHelp from '@/Components/Calculators/CalculatorResultsHelp.vue';
-import CalculatorTips from '@/Components/Calculators/CalculatorTips.vue';
+    import CalculatorResultsHelp from '@/Components/Calculators/CalculatorResultsHelp.vue';
+    import CalculatorTips from '@/Components/Calculators/CalculatorTips.vue';
 
     const calculator = useCalculator('break_even_price');
 

@@ -1,11 +1,11 @@
 <script setup>
     import PublicLayout from '@/Layouts/PublicLayout.vue';
     import CalculatorCard from '@/Components/Calculators/CalculatorCard.vue';
-    import { Link } from '@inertiajs/vue3';
-    import calculatorData from '@/data/calculators.json';
+    import { Link, usePage } from '@inertiajs/vue3';
     import { useSubscription } from '@/Composable/useSubscription';
 
-    const calculators = calculatorData.calculators;
+    const page = usePage();
+    const calculators = page.props.catalog?.calculators ?? [];
 
     // Assuming you have Lucide Vue installed: npm install lucide-vue-next
     import {

@@ -1,7 +1,10 @@
-import calculatorData from '@/data/calculators';
+import { usePage } from '@inertiajs/vue3';
 
 export function useCalculator(slug) {
-    return calculatorData.calculators.find(
+    const page = usePage();
+    const calculators = page.props.catalog?.calculators ?? [];
+
+    return calculators.find(
         calculator => calculator.slug === slug
     );
 }

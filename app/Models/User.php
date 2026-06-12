@@ -81,6 +81,8 @@ class User extends Authenticatable
             $plan = Plan::resolveForPriceId($priceId);
 
             if ($plan) {
+                $plan->loadMissing('calculatorTools');
+
                 return $plan;
             }
         }
@@ -133,7 +135,7 @@ class User extends Authenticatable
             'payment_method_last_four' => $this->pm_last_four,
             'feature_access' => $this->isAdmin()
                 ? CalculatorCatalog::featureSlugs()
-                : ($plan?->feature_access ?? []),
+                : ($plan?->calculatorTools?->pluck('slug')->values()->all() ?? $plan?->feature_access ?? []),
         ];
     }
 

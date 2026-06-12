@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Schema;
 
 #[Fillable([
     'name',
@@ -58,6 +60,14 @@ class Plan extends Model
     }
 
     /**
+     * Calculator tools included with this plan.
+     */
+    public function calculatorTools(): BelongsToMany
+    {
+        return $this->belongsToMany(CalculatorTool::class)->withTimestamps();
+    }
+
+    /**
      * Resolve a plan by one of its Stripe price IDs.
      */
     public static function resolveForPriceId(?string $priceId): ?self
@@ -77,6 +87,14 @@ class Plan extends Model
      */
     public function supportsFeature(string $feature): bool
     {
+        if ($this->relationLoaded('calculatorTools')) {
+            return $this->calculatorTools->contains('slug', $feature);
+        }
+
+        if (Schema::hasTable('calculator_tools') && CalculatorTool::query()->where('slug', $feature)->exists()) {
+            return $this->calculatorTools()->where('slug', $feature)->exists();
+        }
+
         return in_array($feature, $this->feature_access ?? [], true);
     }
 
