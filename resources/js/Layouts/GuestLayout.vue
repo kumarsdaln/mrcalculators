@@ -132,9 +132,9 @@ const flash = computed(() => page.props.flash ?? {});
 
                     <!-- External Links -->
                     <div class="mt-8 flex justify-center gap-8 text-[11px] font-bold uppercase tracking-widest text-[#131747]/40 transition-colors">
-                        <a href="#" class="hover:text-[#FF4040]">Privacy Policy</a>
-                        <a href="#" class="hover:text-[#FF4040]">Terms of Service</a>
-                        <a href="#" class="hover:text-[#FF4040]">Support</a>
+                        <Link :href="route('privacy-policy')" class="hover:text-[#FF4040]">Privacy Policy</Link>
+                        <Link :href="route('terms-conditions')" class="hover:text-[#FF4040]">Terms of Service</Link>
+                        <Link :href="route('disclaimer')" class="hover:text-[#FF4040]">Disclaimer</Link>
                     </div>
                 </div>
 

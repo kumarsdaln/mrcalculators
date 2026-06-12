@@ -1,6 +1,6 @@
 <template>
     <img
-        src="/logo.png"
+        src="/logo-up.png"
         alt="Logo"
         class="object-cover"
     />
