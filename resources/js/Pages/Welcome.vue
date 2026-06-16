@@ -3,6 +3,7 @@
     import CalculatorCard from '@/Components/Calculators/CalculatorCard.vue';
     import { Link, usePage } from '@inertiajs/vue3';
     import { useSubscription } from '@/Composable/useSubscription';
+    import { computed } from 'vue';
 
     const page = usePage();
     const calculators = page.props.catalog?.calculators ?? [];
@@ -21,13 +22,14 @@
         BarChart
     } from 'lucide-vue-next';
 
-    defineProps({
+    const props = defineProps({
         canLogin: Boolean,
         canRegister: Boolean,
         plans: {
             type: Array,
             default: () => [],
         },
+        features: { type: Array, required: true },
     });
 
     const icons = {
@@ -49,6 +51,10 @@
         what_if_profit_calculator: 'What-If Profit Calculator',
         marketing_cost_per_customer: 'Marketing Cost Per Customer Calculator'
     };
+
+    const featureLookup = computed(() =>
+        Object.fromEntries(props.features.map((feature) => [feature.slug, feature])),
+    );
 </script>
 
 <template>
@@ -308,22 +314,20 @@
                         </p>
 
                         <!-- Features -->
-                        <ul class="space-y-4 mb-10">
-                            <li v-for="feature in plan.feature_access" :key="feature"
-                                class="flex items-start gap-3 text-sm">
-                                <CheckCircle2 :size="18" class="mt-0.5 shrink-0" :class="plan.is_featured
-                                        ? 'text-[#FF4040]'
-                                        : 'text-green-500'
-                                    " />
-
-                                <span>
-                                    {{
-                                        featureLabels[feature] ||
-                                        feature.replace(/_/g, ' ')
-                                    }}
-                                </span>
-                            </li>
-                        </ul>
+                        <div class="mt-8 space-y-4 mb-10">
+                            <div v-for="featureSlug in plan.feature_access" :key="featureSlug" class="flex gap-3">
+                                <Zap :size="16" class="mt-0.5 shrink-0 text-[#FF4040]" />
+                                <div :class="plan.is_featured
+                                        ? 'text-[#FFF]'
+                                        : 'text-[#131747]'
+                                    ">
+                                    <p class="text-sm font-bold ">{{ featureLookup[featureSlug]?.name ||
+                                        featureSlug }}</p>
+                                    <p class="text-[11px] ">{{ featureLookup[featureSlug]?.description
+                                        }}</p>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- CTA -->
                         <Link :href="route('register')"

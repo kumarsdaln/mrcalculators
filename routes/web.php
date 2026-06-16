@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ProfileController;
+use App\Support\CalculatorCatalog;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ Route::get('/', function () {
         'plans' => Schema::hasTable('plans')
             ? \App\Models\Plan::active()->orderBy('sort_order')->get()
             : [],
+        'features' => CalculatorCatalog::all(),
     ]);
 })->name('home');
 Route::get('/privacy-policy', function () {
